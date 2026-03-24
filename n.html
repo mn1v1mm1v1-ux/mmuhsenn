@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>accunt</title>
+
+<style>
+
+         body{
+            background-color: black;
+            color: aliceblue;
+            display: flex;
+            justify-content: flex-start; 
+            align-items: center;     
+            height: 100vh;       
+            flex-direction: column;   
+            gap: 20px; 
+            padding-top: 50px;
+            align-items: center;
+
+
+        }
+
+        .ac{
+            position: relative;
+            display: inline-block;
+            cursor: pointer;
+            padding: 15px 20px;
+            color: #ff00ff;
+            text-transform: uppercase;
+            letter-spacing: 4px;
+            text-decoration: none;
+            font-size: 10px;
+            overflow: hidden;
+            transition: 0.5s;
+        }
+        .ac:hover{
+    background: #ff00ff;
+    color: black;
+    box-shadow: 0 0 5px #ff00ff,
+        0 0 25px #ff00ff,
+        0 0 50px #ff00ff,
+        0 0 200px #ff00ff;
+        }
+
+
+        .ac1{
+            position: relative;
+            display: inline-block;
+            cursor: pointer;
+            padding: 15px 20px;
+            color: #ff00ff;
+            text-transform: uppercase;
+            letter-spacing: 4px;
+            text-decoration: none;
+            font-size: 10px;
+            overflow: hidden;
+            transition: 0.5s;
+        }
+        .ac1:hover{
+    background: #ff00ff;
+    color: black;
+    box-shadow: 0 0 5px #ff00ff,
+        0 0 25px #ff00ff,
+        0 0 50px #ff00ff,
+        0 0 200px #ff00ff;
+        }
+        
+        .ac2{
+            position: relative;
+            display: inline-block;
+            cursor: pointer;
+            padding: 15px 20px;
+            color: #ff00ff;
+            text-transform: uppercase;
+            letter-spacing: 4px;
+            text-decoration: none;
+            font-size: 10px;
+            overflow: hidden;
+            transition: 0.5s;
+        }
+        .ac2:hover{
+    background: #ff00ff;
+    color: black;
+    box-shadow: 0 0 5px #ff00ff,
+        0 0 25px #ff00ff,
+        0 0 50px #ff00ff,
+        0 0 200px #ff00ff;
+        }
+        
+
+</style>
+</head>
+
+
+<body>
+    <a href="https://www.instagram.com/iswrapped" class="ac">instgram</a>
+    <a href="https://t.me/itsshallow"class="ac1">telegram</a>
+    <a href="https://t.me/PPXTU" class="ac2">My channl</a>
+</body>
+
+<script>
+// إنشاء كانفس تلقائيًا وإضافته للصفحة
+const canvas = document.createElement('canvas');
+document.body.appendChild(canvas);
+const ctx = canvas.getContext('2d');
+
+function resizeCanvas() {
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+    canvas.style.display = 'block';
+    canvas.style.position = 'fixed';
+    canvas.style.top = '0';
+    canvas.style.left = '0';
+    canvas.style.zIndex = '-1';
+    canvas.style.backgroundColor = 'black';
+}
+window.addEventListener('resize', resizeCanvas);
+resizeCanvas();
+
+// إعداد النجوم
+const stars = [];
+const numStars = 150; // كثافة أقل
+
+for (let i = 0; i < numStars; i++) {
+    stars.push({
+        x: Math.random() * canvas.width,
+        y: Math.random() * canvas.height,
+        speed: Math.random() * 1 + 0.2, // حركة بطيئة
+        radius: Math.random() * 1.5 + 0.5, // حجم النجمة
+        alpha: 1 // لون أبيض كامل بدون شفافية
+    });
+}
+
+// رسم النجوم
+function drawStars() {
+    ctx.fillStyle = 'black';
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+    stars.forEach(star => {
+        ctx.fillStyle = `rgba(255, 255, 255, ${star.alpha})`; // أبيض واضح
+        ctx.beginPath();
+        ctx.arc(star.x, star.y, star.radius, 0, Math.PI * 2);
+        ctx.fill();
+    });
+}
+
+// تحديث النجوم لتتحرك من الأسفل إلى الأعلى
+function updateStars() {
+    stars.forEach(star => {
+        star.y -= star.speed;
+        if (star.y < 0) {
+            star.y = canvas.height;
+            star.x = Math.random() * canvas.width;
+            star.speed = Math.random() * 1 + 0.2;
+            star.radius = Math.random() * 1.5 + 0.5;
+            star.alpha = 1;
+        }
+    });
+}
+
+
+function animate() {
+    drawStars();
+    updateStars();
+    requestAnimationFrame(animate);
+}
+
+animate();
+</script>
+
+<script>
+    document.addEventListener("click", function() {
+        const audio = document.getElementById("bg-music");
+        audio.play();
+    }, { once: true });
+</script>
+
+<audio id="bg-music" loop>
+    <source src="Billie Eilish - everything i wanted - BillieEilishVEVO.mp3" type="audio/mpeg">
+</audio>
+
+</html>
