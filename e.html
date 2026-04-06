@@ -4,40 +4,179 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-<style>
-    body {
-        background-color: black;
-        color: aliceblue;
-        display: flex;
-        justify-content: flex-start; 
-        align-items: center;     
-        height: 100vh;       
-        flex-direction: column;   
-        gap: 20px; 
-        padding-top: 50px;
-    }
-</style>
+
+    <style>
+        body{
+            margin: 0;
+            background-color: #0a0014;
+            color: #ccc;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        #card{
+            width: 700px;
+            padding: 40px;
+            border: 1px solid rgb(255,0,255,0.3);
+            position: relative;
+            box-shadow: 0 0 20px rgb(255,0,250,0.2);
+        }
+        #card::after , #card::before{
+    content: '';
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    border: 2px solid #ff00ff;
+        }
+        #card::before{
+    top: -10px;
+    left: -10px;
+    border-right: none;
+    border-bottom: none;
+
+        }
+        #card::after{
+    bottom: -10px;
+    right: -10px;
+    border-left: none;
+    border-top: none;
+        }
+        h1{
+            color: #ff00ff;
+            text-shadow: 0 0 10px #ff00ff;
+            letter-spacing: 2px;
+        }
+        #so{
+            margin: 20px 0;
+            line-height: 1.6;
+
+        }
+        #d{
+            margin-top: 20px;
+        }
+
+        .r {
+    display: flex;
+    justify-content: space-between;
+    margin: 8px 0;
+    border-bottom: 1px dashed rgba(255,255,255,0.1);
+    padding-bottom: 5px;
+}
+        .mm{
+            color: #ff00ff;
+        }
+        
+.m{
+    color: #fff;
+}
+
+.offline {
+    color: red;
+    text-shadow: 0 0 6px red;
+}
+    </style>
 </head>
 <body>
-    <h1>
-        Hi I'm <strong>Mohsen</strong>
+    <div id="card">
+        <h1 id="n">Muhsen</h1>
+    
 
-        
-    </h1>
-    <p>This is my personal space where I introduce myself and share my thoughts and interests.<br>
-        <strong>My birthday is April 25th.</strong><br>
-        I also love my friends.<br>
-        I'm currently interested in <strong></strong>, and my skill level is intermediate. I'm always striving to develop my skills and learn new things.
-    </h1>
-</p>
+    <div id="so">
+        Personal space where I introduce myself and share my thoughts and interests.
+    </div>
 
+    <div class="r">
+        <div class="m">BIRTHDAY</div>
+        <div class="mm">APRIL 25</div>
+    </div>
+
+    <div class="r">
+        <div class="m">STATUS</div>
+        <div class="mm offline">● OFFLINE</div>
+    </div>
+
+    <div class="r">
+        <div class="m">PASSION</div>
+        <div class="mm">FRIENDS & LEARNING</div>
+    </div>
+
+    <div class="r">
+        <div class="m">SKILL LEVEL</div>
+        <div class="mm">INTERMEDIATE</div>
+    </div>
+</div>
+    </div>
+</body>
 
 <script>
-    document.addEventListener("click", function() {
-        const audio = document.getElementById("bg-music");
-        audio.play();
-    }, { once: true });
+// إنشاء كانفس تلقائيًا وإضافته للصفحة
+const canvas = document.createElement('canvas');
+document.body.appendChild(canvas);
+const ctx = canvas.getContext('2d');
+
+function resizeCanvas() {
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+    canvas.style.display = 'block';
+    canvas.style.position = 'fixed';
+    canvas.style.top = '0';
+    canvas.style.left = '0';
+    canvas.style.zIndex = '-1';
+    canvas.style.backgroundColor = 'black';
+}
+window.addEventListener('resize', resizeCanvas);
+resizeCanvas();
+
+// إعداد النجوم
+const stars = [];
+const numStars = 150; // كثافة أقل
+
+for (let i = 0; i < numStars; i++) {
+    stars.push({
+        x: Math.random() * canvas.width,
+        y: Math.random() * canvas.height,
+        speed: Math.random() * 1 + 0.2, // حركة بطيئة
+        radius: Math.random() * 1.5 + 0.5, // حجم النجمة
+        alpha: 1 // لون أبيض كامل بدون شفافية
+    });
+}
+
+// رسم النجوم
+function drawStars() {
+    ctx.fillStyle = 'black';
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+    stars.forEach(star => {
+        ctx.fillStyle = `rgba(255, 255, 255, ${star.alpha})`; // أبيض واضح
+        ctx.beginPath();
+        ctx.arc(star.x, star.y, star.radius, 0, Math.PI * 2);
+        ctx.fill();
+    });
+}
+
+// تحديث النجوم لتتحرك من الأسفل إلى الأعلى
+function updateStars() {
+    stars.forEach(star => {
+        star.y -= star.speed;
+        if (star.y < 0) {
+            star.y = canvas.height;
+            star.x = Math.random() * canvas.width;
+            star.speed = Math.random() * 1 + 0.2;
+            star.radius = Math.random() * 1.5 + 0.5;
+            star.alpha = 1;
+        }
+    });
+}
+
+
+function animate() {
+    drawStars();
+    updateStars();
+    requestAnimationFrame(animate);
+}
+
+animate();
 </script>
 
-</body>
 </html>
